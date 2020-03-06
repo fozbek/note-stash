@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'notestash'
+      MYSQL_USER: 'noteuser'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'verysecretrootpassword'
+    ports:
+      - '3306:3306'
+    volumes:
+      - my-db:/var/lib/mysql
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+    - '6379:6379'
+
+  laravel:
+    tty: true
+    image: bitnami/laravel:6
+    environment:
+      - DB_HOST=mysql
+      - DB_USERNAME=noteuser
+      - DB_DATABASE=notestash
+      - DB_PASSWORD=password
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/app
+
+volumes:
+  my-db:
