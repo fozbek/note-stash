@@ -3,11 +3,7 @@
 ### First
     docker-compose up
     
-## Create passport credentials in container
-#### Get Laravel container ID
-    docker ps
-
-### Generate 
+#### Create passport credentials in container
     docker-compose exec laravel php artisan passport:install
 
 ## Authentication
